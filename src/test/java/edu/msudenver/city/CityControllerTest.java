@@ -1,4 +1,4 @@
-package edu.msudenver.country.country;
+package edu.msudenver.city;
 
 import edu.msudenver.country.Country;
 import edu.msudenver.country.CountryController;
@@ -25,69 +25,71 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(value = CountryController.class)
-public class CountryControllerTest {
+@WebMvcTest(value = CityController.class)
+public class CityControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private CountryService countryService;
+    private CityService cityService;
 
     @BeforeEach
     public void setup() {
     }
 
     @Test
-    public void testGetCountries() throws Exception {
+    public void testGetCities() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/countries/")
+                .get("/cities/")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Country testCountry = new Country();
-        testCountry.setCountryCode("us");
-        testCountry.setCountryName("United States");
+        City testCity = new City();
+        testCity.setName("Denver");
+        testCity.setCountryCode("us");
+        testCity.setPostalCode("80204");
 
-        Mockito.when(countryService.getCountries()).thenReturn(Arrays.asList(testCountry));
+        Mockito.when(cityService.getCities()).thenReturn(Arrays.asList(testCity));
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertTrue(response.getContentAsString().contains("United States"));
+        assertTrue(response.getContentAsString().contains("Denver"));
     }
 
     @Test
-    public void testGetCountry() throws Exception {
+    public void testGetCity() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/countries/us")
+                .get("/cities/us/80204")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Country testCountry = new Country();
-        testCountry.setCountryCode("us");
-        testCountry.setCountryName("United States");
+        City testCity = new City();
+        testCity.setName("Denver");
+        testCity.setCountryCode("us");
+        testCity.setPostalCode("80204");
 
-        Mockito.when(countryService.getCountry(Mockito.anyString())).thenReturn(testCountry);
+        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(testCity);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertTrue(response.getContentAsString().contains("United States"));
+        assertTrue(response.getContentAsString().contains("Denver"));
     }
 
     @Test
-    public void testGetCountryNotFound() throws Exception {
+    public void testGetCityNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .get("/countries/notfound") //be careful about this with venues. Have the controller accept
                                                       // long type and change this to a number, 404 I think.
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(countryService.getCountry(Mockito.anyString())).thenReturn(null);
+        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(null);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -97,35 +99,36 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void testCreateCountry() throws Exception {
+    public void testCreateCity() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/countries/")
+                .post("/cities/")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"countryCode\":\"ca\", \"countryName\": \"Canada\"}")
+                .content("{\"countryCode\":\"ca\", \"postalCode\": \"80204\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Country canada = new Country();
-        canada.setCountryName("Canada");
-        canada.setCountryCode("ca");
-        Mockito.when(countryService.saveCountry(Mockito.any())).thenReturn(canada);
+        City denver = new City();
+        denver.setName("Denver");
+        denver.setCountryCode("us");
+        denver.setPostalCode("80204");
+        Mockito.when(cityService.saveCity(Mockito.any())).thenReturn(denver);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-        assertTrue(response.getContentAsString().contains("Canada"));
+        assertTrue(response.getContentAsString().contains("Denver"));
     }
 
     @Test
-    public void testCreateCountryBadRequest() throws Exception {
+    public void testCreateCityBadRequest() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .post("/countries/")
+                .post("/cities/")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"countryName\": \"Canada\"}")
+                .content("{\"cityName\": \"Denver\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(countryService.saveCountry(Mockito.any())).thenThrow(IllegalArgumentException.class);
+        Mockito.when(cityService.saveCity(Mockito.any())).thenThrow(IllegalArgumentException.class);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -136,40 +139,41 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void testUpdateCountry() throws Exception {
+    public void testUpdateCity() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/countries/ca")
+                .put("/cities/us/80204")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"countryCode\":\"ca\", \"countryName\": \"Canada Updated\"}")
+                .content("{\"countryCode\":\"us\", \"postalCode\":\"80204\", \"Name\": \"Denver Updated\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Country canada = new Country();
-        canada.setCountryName("Canada");
-        canada.setCountryCode("ca");
-        Mockito.when(countryService.getCountry(Mockito.any())).thenReturn(canada);
+        City denver = new City();
+        denver.setName("Denver");
+        denver.setCountryCode("us");
+        denver.setPostalCode("80204");
+        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);
 
-        Country canadaUpdated = new Country();
-        canadaUpdated.setCountryName("Canada Updated");
-        canadaUpdated.setCountryCode("ca");
-        Mockito.when(countryService.saveCountry(Mockito.any())).thenReturn(canadaUpdated);
+        City denverUpdated = new City();
+        denverUpdated.setName("Denver Updated");
+        denverUpdated.setCountryCode("us");
+        Mockito.when(cityService.saveCity(Mockito.any())).thenReturn(denverUpdated);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.OK.value(), response.getStatus());
-        assertTrue(response.getContentAsString().contains("Canada Updated"));
+        assertTrue(response.getContentAsString().contains("Denver Updated"));
     }
 
     @Test
-    public void testUpdateCountryNotFound() throws Exception {
+    public void testUpdateCityNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/countries/notfound")
+                .put("/cities/notfound")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"countryCode\":\"notfound\"}")
+                .content("{\"countryCode\": \"us\", \"postalCode\": \"80204\", \"Name\": \"notfound\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(countryService.getCountry(Mockito.any())).thenReturn(null);
+        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(null);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -179,19 +183,20 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void testUpdateCountryBadRequest() throws Exception {
+    public void testUpdateCityBadRequest() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/countries/ca")
+                .put("/cities/us/80204")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"countryCode\":\"ca\"}")
+                .content("{\"countryCode\":\"us\", \"postalCode\":\"80204\", \"Name\":\"Denver\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Country canada = new Country();
-        canada.setCountryName("Canada");
-        canada.setCountryCode("ca");
-        Mockito.when(countryService.getCountry(Mockito.any())).thenReturn(canada);
+        City denver = new City();
+        denver.setName("Denver");
+        denver.setCountryCode("us");
+        denver.setPostalCode("80204");
+        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);
 
-        Mockito.when(countryService.saveCountry(Mockito.any())).thenThrow(IllegalArgumentException.class);
+        Mockito.when(cityService.saveCity(Mockito.any())).thenThrow(IllegalArgumentException.class);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -201,13 +206,13 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void testDeleteCountry() throws Exception {
+    public void testDeleteCity() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .delete("/countries/ca")
+                .delete("/cities/us/80204")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(countryService.deleteCountry(Mockito.any())).thenReturn(true);
+        Mockito.when(cityService.deleteCity(Mockito.any())).thenReturn(true);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
@@ -216,17 +221,18 @@ public class CountryControllerTest {
     }
 
     @Test
-    public void testDeleteCountryNotFound() throws Exception {
+    public void testDeleteCityNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .delete("/countries/notfound")
+                .delete("/cities/notfound")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(countryService.deleteCountry(Mockito.any())).thenReturn(false);
+        Mockito.when(cityService.deleteCity(Mockito.any())).thenReturn(false);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
         assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatus());
         assertTrue(response.getContentAsString().isEmpty());
     }
+
 }
