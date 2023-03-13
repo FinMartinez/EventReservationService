@@ -46,7 +46,7 @@ public class CityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         City testCity = new City();
-        testCity.setName("Denver");
+        testCity.setCityName("Denver");
         testCity.setCountryCode("us");
         testCity.setPostalCode("80204");
 
@@ -68,7 +68,7 @@ public class CityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         City testCity = new City();
-        testCity.setName("Denver");
+        testCity.setCityName("Denver");
         testCity.setCountryCode("us");
         testCity.setPostalCode("80204");
 
@@ -107,7 +107,7 @@ public class CityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         City denver = new City();
-        denver.setName("Denver");
+        denver.setCityName("Denver");
         denver.setCountryCode("us");
         denver.setPostalCode("80204");
         Mockito.when(cityService.saveCity(Mockito.any())).thenReturn(denver);
@@ -147,13 +147,13 @@ public class CityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         City denver = new City();
-        denver.setName("Denver");
+        denver.setCityName("Denver");
         denver.setCountryCode("us");
         denver.setPostalCode("80204");
         Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);
 
         City denverUpdated = new City();
-        denverUpdated.setName("Denver Updated");
+        denverUpdated.setCityName("Denver Updated");
         denverUpdated.setCountryCode("us");
         Mockito.when(cityService.saveCity(Mockito.any())).thenReturn(denverUpdated);
 
@@ -191,7 +191,7 @@ public class CityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         City denver = new City();
-        denver.setName("Denver");
+        denver.setCityName("Denver");
         denver.setCountryCode("us");
         denver.setPostalCode("80204");
         Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);

@@ -44,7 +44,7 @@ public class CityServiceTest {
     @Test
     public void testGetCities() throws Exception {
         City testCity = new City();
-        testCity.setName("Denver");
+        testCity.setCityName("Denver");
         testCity.setCountryCode("us");
         testCity.setPostalCode("80204");
 
@@ -54,13 +54,13 @@ public class CityServiceTest {
         assertEquals(1, cities.size());
         assertEquals("Denver", cities
                 .get(0)
-                .getName());
+                .getCityName());
     }
 
     @Test
     public void testGetCity() throws Exception {
         City testCity = new City();
-        testCity.setName("Denver");
+        testCity.setCityName("Denver");
         testCity.setCountryCode("us");
         testCity.setPostalCode("80204");
 
@@ -70,7 +70,7 @@ public class CityServiceTest {
 
         Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(testCity));
         City city = cityService.getCity(testCityId);
-        assertEquals("Denver", city.getName());
+        assertEquals("Denver", city.getCityName());
    }
 
     @Test
@@ -86,7 +86,7 @@ public class CityServiceTest {
     @Test
     public void testSaveCity() throws Exception {
         City albuquerque = new City();
-        albuquerque.setName("Albuquerque");
+        albuquerque.setCityName("Albuquerque");
         albuquerque.setCountryCode("us");
         albuquerque.setPostalCode("87106");
 
@@ -100,7 +100,7 @@ public class CityServiceTest {
     @Test
     public void testSaveCountryBadRequest() throws Exception {
         City badAbq = new City();
-        badAbq.setName("Albuquerque");
+        badAbq.setCityName("Albuquerque");
 
         Mockito.when(cityRepository.save(Mockito.any())).thenThrow(IllegalArgumentException.class);
         Mockito.when(cityRepository.saveAndFlush(Mockito.any())).thenThrow(IllegalArgumentException.class);
@@ -113,7 +113,7 @@ public class CityServiceTest {
     @Test
     public void testDeleteCity() throws Exception {
         City albuquerque = new City();
-        albuquerque.setName("Albuquerque");
+        albuquerque.setCityName("Albuquerque");
         albuquerque.setCountryCode("us");
         albuquerque.setPostalCode("87106");
 

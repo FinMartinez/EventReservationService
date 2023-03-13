@@ -36,11 +36,11 @@ public class City {
         this.countryCode = countryCode;
     }
 
-    public String getName() {
+    public String getCityName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setCityName(String name) {
         this.name = name;
     }
 

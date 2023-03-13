@@ -27,12 +27,12 @@ public class VenueController {
         }
     }
 
-    @GetMapping(path = "/{countryCode}/{postalCode}", produces = "application/json")
-    public ResponseEntity<City> getCity(@PathVariable String countryCode,
-                                        @PathVariable String postalCode,
-                                        @PathVariable Long venueCode) {
+    @GetMapping(path = "/{countryCode}/{postalCode}/{venueCode}", produces = "application/json")
+    public ResponseEntity<Venue> getVenue(@PathVariable Long venueCode,
+                                        @PathVariable String countryCode,
+                                        @PathVariable String postalCode) {
         try {
-            VenueId venueId = new VenueId(countryCode, postalCode, venueCode);
+            VenueId venueId = new VenueId(venueCode, countryCode, postalCode);
             Venue venue = venueService.getVenue(venueId);
             return new ResponseEntity<>(venue, venue == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
@@ -57,11 +57,11 @@ public class VenueController {
     public ResponseEntity<Venue> updateVenue(@PathVariable String countryCode,
                                            @PathVariable String postalCode,
                                            @PathVariable Long venueCode,
-                                           @RequestBody Country updatedCountry) {
+                                           @RequestBody Venue updatedVenue) {
         VenueId venueId = new VenueId(venueCode, countryCode, postalCode);
         Venue retrievedVenue = venueService.getVenue(venueId);
         if (retrievedVenue != null) {
-            retrievedVenue.setName(updatedCountry.getVenueName());
+            retrievedVenue.setVenueName(updatedVenue.getVenueName());
             try {
                 return ResponseEntity.ok(venueService.saveVenue(retrievedVenue));
             } catch (Exception e) {
@@ -74,7 +74,7 @@ public class VenueController {
     }
 
     @DeleteMapping(path = "/{countryCode}/{postalCode}/{venueCode}")
-    public ResponseEntity<Void> deleteCity(@PathVariable Long venueCode,
+    public ResponseEntity<Void> deleteVenue(@PathVariable Long venueCode,
                                            @PathVariable String countryCode,
                                            @PathVariable String postalCode) {
         try {

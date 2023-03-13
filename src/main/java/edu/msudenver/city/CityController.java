@@ -51,11 +51,11 @@ public class CityController {
     @PutMapping(path = "/{countryCode}/{postalCode}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<City> updateCity(@PathVariable String countryCode,
                                            @PathVariable String postalCode,
-                                           @RequestBody Country updatedCountry) {
+                                           @RequestBody City updatedCity) {
         CityId cityId = new CityId(countryCode, postalCode);
         City retrievedCity = cityService.getCity(cityId);
         if (retrievedCity != null) {
-            retrievedCity.setName(updatedCountry.getCountryName());
+            retrievedCity.setCityName(updatedCity.getCityName());
             try {
                 return ResponseEntity.ok(cityService.saveCity(retrievedCity));
             } catch (Exception e) {
