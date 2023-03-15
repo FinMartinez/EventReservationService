@@ -98,7 +98,7 @@ public class CityServiceTest {
 
     //TO-DO
     @Test
-    public void testSaveCountryBadRequest() throws Exception {
+    public void testSaveCityBadRequest() throws Exception {
         City badAbq = new City();
         badAbq.setCityName("Albuquerque");
 

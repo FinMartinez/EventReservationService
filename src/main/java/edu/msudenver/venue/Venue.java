@@ -11,8 +11,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "venues")
 public class Venue {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "venue_id", columnDefinition = "SERIAL")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long venueId;
 
