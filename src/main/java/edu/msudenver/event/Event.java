@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 })
 @Entity
 @Table(name = "events")
-public class Event {
+public class Event{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "event_id", columnDefinition = "SERIAL")
