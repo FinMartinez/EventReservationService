@@ -3,7 +3,7 @@ package edu.msudenver.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
-//import edu.msudenver.venue.Venue;
+
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -11,6 +11,7 @@ import org.hibernate.annotations.TypeDefs;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @TypeDefs({
         @TypeDef(
@@ -32,11 +33,11 @@ public class Event{
     private String eventTitle;
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "starts", columnDefinition = "timestamp")
-    private Timestamp eventStart;
+    private LocalDateTime eventStart;
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ends", columnDefinition = "timestamp")
-    private Timestamp eventEnd;
+    private LocalDateTime eventEnd;
 
     @Type(type = "string-array")
     @Column(name = "colors", columnDefinition = "text[]")
@@ -52,8 +53,8 @@ public class Event{
 
     public Event(Long eventId,
                  String eventTitle,
-                 Timestamp eventStart,
-                 Timestamp eventEnd,
+                 LocalDateTime eventStart,
+                 LocalDateTime eventEnd,
                  Long venueId,
                  String[] eventColors) {
         this.eventId = eventId;
@@ -72,13 +73,13 @@ public class Event{
 
     public void setEventTitle(String eventTitle) { this.eventTitle = eventTitle; }
 
-    public Timestamp getEventStart() { return eventStart; }
+    public LocalDateTime getEventStart() { return eventStart; }
 
-    public void setEventStart(Timestamp eventStart) { this.eventStart = eventStart; }
+    public void setEventStart(LocalDateTime eventStart) { this.eventStart = eventStart; }
 
-    public Timestamp getEventEnd() { return eventEnd; }
+    public LocalDateTime getEventEnd() { return eventEnd; }
 
-    public void setEventEnd(Timestamp eventEnd) { this.eventEnd = eventEnd; }
+    public void setEventEnd(LocalDateTime eventEnd) { this.eventEnd = eventEnd; }
 
     public String[] getEventColors() { return eventColors; }
 

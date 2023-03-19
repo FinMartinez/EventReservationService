@@ -49,8 +49,8 @@ public class EventControllerTest {
         Event testEvent = new Event();
         testEvent.setEventId(4L);
         testEvent.setEventTitle("Synthfest");
-        testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
+        testEvent.setEventStart(LocalDateTime.now());
+        testEvent.setEventEnd(LocalDateTime.now());
         testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
@@ -76,8 +76,8 @@ public class EventControllerTest {
         Event testEvent = new Event();
         testEvent.setEventId(4L);
         testEvent.setEventTitle("Synthfest");
-        testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
+        testEvent.setEventStart(LocalDateTime.now());
+        testEvent.setEventEnd(LocalDateTime.now());
         testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
@@ -119,8 +119,8 @@ public class EventControllerTest {
         Event testEvent = new Event();
         testEvent.setEventId(4L);
         testEvent.setEventTitle("Synthfest");
-        testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
-        testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
+        testEvent.setEventStart(LocalDateTime.now());
+        testEvent.setEventEnd(LocalDateTime.now());
         testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
@@ -162,8 +162,8 @@ public class EventControllerTest {
         Event testEvent = new Event();
         testEvent.setEventId(4L);
         testEvent.setEventTitle("Synthfest");
-        testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
-        testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
+        testEvent.setEventStart(LocalDateTime.now());
+        testEvent.setEventEnd(LocalDateTime.now());
         testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
@@ -173,8 +173,8 @@ public class EventControllerTest {
         Event testEventUpdated = new Event();
         testEventUpdated.setEventId(4L);
         testEventUpdated.setEventTitle("Synthfest Updated");
-        testEventUpdated.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
-        testEventUpdated.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
+        testEventUpdated.setEventStart(LocalDateTime.now());
+        testEventUpdated.setEventEnd(LocalDateTime.now());
         testEventUpdated.setVenueId(4L);
         String[] colorsUpated = {"purple", "black", "orange", "red"};
         testEventUpdated.setEventColors(colorsUpated);
@@ -216,8 +216,8 @@ public class EventControllerTest {
         Event testEvent = new Event();
         testEvent.setEventId(4L);
         testEvent.setEventTitle("Synthfest");
-        testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
+        testEvent.setEventStart(LocalDateTime.now());
+        testEvent.setEventEnd(LocalDateTime.now());
         testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
