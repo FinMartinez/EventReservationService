@@ -1,8 +1,5 @@
 package edu.msudenver.city;
 
-import edu.msudenver.country.Country;
-import edu.msudenver.country.CountryRepository;
-import edu.msudenver.country.CountryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -69,7 +66,7 @@ public class CityServiceTest {
         testCityId.setPostalCode("80204");
 
         Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(testCity));
-        City city = cityService.getCity(testCityId);
+        City city = cityService.getCity("us", "80204");
         assertEquals("Denver", city.getCityName());
    }
 
@@ -80,7 +77,7 @@ public class CityServiceTest {
         assertEquals(null,
                 //need to find a way to return "not found" with cityId object
                 //Stack provided this suggestion, let's give it a shot
-                cityService.getCity(null));
+                cityService.getCity(null, null));
     }
 
     @Test

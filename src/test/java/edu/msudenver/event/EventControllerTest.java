@@ -1,12 +1,8 @@
 package edu.msudenver.event;
 
-import edu.msudenver.venue.Venue;
-import edu.msudenver.venue.VenueController;
-import edu.msudenver.venue.VenueService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -55,7 +51,7 @@ public class EventControllerTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
         testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -73,7 +69,7 @@ public class EventControllerTest {
     @Test
     public void testGetEvent() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/events/4/4/")//what needs to go for venue id? Just this?
+                .get("/events/4/")//what needs to go for venue id? Just this?
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -82,7 +78,7 @@ public class EventControllerTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
         testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -125,7 +121,7 @@ public class EventControllerTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
         Mockito.when(eventService.saveEvent(Mockito.any())).thenReturn(testEvent);
@@ -158,9 +154,9 @@ public class EventControllerTest {
     @Test
     public void testUpdateVenue() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/events/4/4")//id can be anything you want
+                .put("/events/4/")//id can be anything you want
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"eventId\":\"4\",\"venueId\":\"4\"}")
+                .content("{\"eventId\":\"4\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
         Event testEvent = new Event();
@@ -168,7 +164,7 @@ public class EventControllerTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -179,7 +175,7 @@ public class EventControllerTest {
         testEventUpdated.setEventTitle("Synthfest Updated");
         testEventUpdated.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEventUpdated.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEventUpdated.setEventVenue(4L);
+        testEventUpdated.setVenueId(4L);
         String[] colorsUpated = {"purple", "black", "orange", "red"};
         testEventUpdated.setEventColors(colorsUpated);
         Mockito.when(eventService.saveEvent(Mockito.any())).thenReturn(testEventUpdated);
@@ -195,7 +191,7 @@ public class EventControllerTest {
     @Test
     public void testUpdateEventNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/events/not found")
+                .put("/events/404")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"eventId\":\"404\"}")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -212,9 +208,9 @@ public class EventControllerTest {
     @Test
     public void testUpdateEventBadRequest() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/events/4/4/") //add in venue id?
+                .put("/events/4") //add in venue id?
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"eventId\":\"4\",\"venueId\":\"4\"}")
+                .content("{\"eventId\":\"4\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
         Event testEvent = new Event();
@@ -222,7 +218,7 @@ public class EventControllerTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf(LocalDateTime.now()));
         testEvent.setEventEnd(Timestamp.valueOf(LocalDateTime.now()));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
         Mockito.when(eventService.getEvent(Mockito.any())).thenReturn(testEvent);
@@ -239,7 +235,7 @@ public class EventControllerTest {
     @Test
     public void testDeleteEvent() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .delete("/events/4/4/") //add in venue id
+                .delete("/events/4/") //add in venue id
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

@@ -1,8 +1,5 @@
 package edu.msudenver.event;
 
-import edu.msudenver.venue.Venue;
-import edu.msudenver.venue.VenueId;
-import edu.msudenver.venue.VenueService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,12 +24,11 @@ public class EventController {
         }
     }
 
-    @GetMapping(path = "/{eventCode}/{venueCode}", produces = "application/json")
-    public ResponseEntity<Event> getEvent(@PathVariable Long eventCode,
-                                        @PathVariable Long venueCode) {
+    @GetMapping(path = "/{eventCode}", produces = "application/json")
+    public ResponseEntity<Event> getEvent(@PathVariable Long eventCode) {
         try {
-            EventId eventId = new EventId(eventCode, venueCode);
-            Event event = eventService.getEvent(eventId);
+            //EventId eventId = new EventId(eventCode, venueCode);
+            Event event = eventService.getEvent(eventCode);
             return new ResponseEntity<>(event, event == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,14 +46,12 @@ public class EventController {
         }
     }
 
-    @PutMapping(path = "/{venueCode}/{eventCode}",
+    @PutMapping(path = "/{eventCode}",
             consumes = "application/json",
             produces = "application/json")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long venueCode,
-                                             @PathVariable Long eventCode,
+    public ResponseEntity<Event> updateEvent(@PathVariable Long eventCode,
                                              @RequestBody Event updatedEvent) {
-        EventId eventId = new EventId(venueCode,eventCode);
-        Event retrievedEvent = eventService.getEvent(eventId);
+        Event retrievedEvent = eventService.getEvent(eventCode);
         if (retrievedEvent != null) {
             retrievedEvent.setEventTitle(updatedEvent.getEventTitle());
             try {
@@ -71,12 +65,11 @@ public class EventController {
         }
     }
 
-    @DeleteMapping(path = "/{venueCode}/{eventCode}")
-    public ResponseEntity<Void> deleteEvent(@PathVariable Long venueCode,
-                                           @PathVariable Long eventCode) {
+    @DeleteMapping(path = "/{eventCode}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long eventCode) {
         try {
-            EventId eventId = new EventId(venueCode, eventCode);
-            return new ResponseEntity<>(eventService.deleteEvent(eventId) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
+
+            return new ResponseEntity<>(eventService.deleteEvent(eventCode) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(ExceptionUtils.getStackTrace(e), HttpStatus.BAD_REQUEST);

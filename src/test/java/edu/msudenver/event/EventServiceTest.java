@@ -1,9 +1,5 @@
 package edu.msudenver.event;
 
-import edu.msudenver.venue.Venue;
-import edu.msudenver.venue.VenueId;
-import edu.msudenver.venue.VenueRepository;
-import edu.msudenver.venue.VenueService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +46,7 @@ public class EventServiceTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -70,16 +66,12 @@ public class EventServiceTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
-        EventId testEventId = new EventId();
-        testEventId.setEventCode(4L);
-        testEventId.setVenueCode(4L);
-
         Mockito.when(eventRepository.findById(Mockito.any())).thenReturn(Optional.of(testEvent));
-        Event event = eventService.getEvent(testEventId);
+        Event event = eventService.getEvent(4L);
         assertEquals("Synthfest", event.getEventTitle());
    }
 
@@ -98,7 +90,7 @@ public class EventServiceTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -115,7 +107,7 @@ public class EventServiceTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
 
@@ -133,18 +125,14 @@ public class EventServiceTest {
         testEvent.setEventTitle("Synthfest");
         testEvent.setEventStart(Timestamp.valueOf("2023-03-17 17:30:00.000000"));
         testEvent.setEventEnd(Timestamp.valueOf("2023-03-18 01:30:00.000000"));
-        testEvent.setEventVenue(4L);
+        testEvent.setVenueId(4L);
         String[] colors = {"purple", "black", "orange"};
         testEvent.setEventColors(colors);
-
-        EventId testEventId = new EventId();
-        testEventId.setEventCode(4L);
-        testEventId.setVenueCode(4L);
 
         Mockito.when(eventRepository.findById(Mockito.any())).thenReturn(Optional.of(testEvent));
         Mockito.when(eventRepository.existsById(Mockito.any())).thenReturn(true);
 
-        assertTrue(eventService.deleteEvent(testEventId));
+        assertTrue(eventService.deleteEvent(4L));
     }
 
     @Test

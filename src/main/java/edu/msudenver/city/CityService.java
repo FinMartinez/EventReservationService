@@ -23,9 +23,9 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public City getCity(CityId cityId) {
+    public City getCity(String countryCode, String postalCode) {
         try {
-            return cityRepository.findById(cityId).get();
+            return cityRepository.findById(new CityId(countryCode, postalCode)).get();
         } catch(NoSuchElementException | IllegalArgumentException e) {
             e.printStackTrace();
             return null;

@@ -1,8 +1,5 @@
 package edu.msudenver.event;
 
-import edu.msudenver.venue.Venue;
-import edu.msudenver.venue.VenueId;
-import edu.msudenver.venue.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +21,7 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public Event getEvent(EventId eventId) {
+    public Event getEvent(Long eventId) {
         try {
             return eventRepository.findById(eventId).get();
         } catch(NoSuchElementException | IllegalArgumentException e) {
@@ -39,7 +36,7 @@ public class EventService {
         entityManager.refresh(event);
         return event;
     }
-    public boolean deleteEvent(EventId eventId) {
+    public boolean deleteEvent(Long eventId) {
         try {
             if(eventRepository.existsById(eventId)) {
                 eventRepository.deleteById(eventId);

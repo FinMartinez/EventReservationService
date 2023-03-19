@@ -1,9 +1,5 @@
 package edu.msudenver.venue;
 
-import edu.msudenver.city.City;
-import edu.msudenver.city.CityId;
-import edu.msudenver.city.CityRepository;
-import edu.msudenver.city.CityService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,13 +69,8 @@ public class VenueServiceTest {
         testVenue.setPostalCode("80204");
         testVenue.setActive(true);
 
-        VenueId testVenueId = new VenueId();
-        testVenueId.setVenueCode(4L);
-        testVenueId.setCountryCode("us");
-        testVenueId.setPostalCode("80204");
-
         Mockito.when(venueRepository.findById(Mockito.any())).thenReturn(Optional.of(testVenue));
-        Venue venue = venueService.getVenue(testVenueId);
+        Venue venue = venueService.getVenue(4L);
         assertEquals("Mission Ballroom", venue.getVenueName());
    }
     @Test
@@ -139,15 +130,11 @@ public class VenueServiceTest {
         testVenue.setPostalCode("80204");
         testVenue.setActive(true);
 
-        VenueId testVenueId = new VenueId();
-        testVenueId.setVenueCode(4L);
-        testVenueId.setCountryCode("us");
-        testVenueId.setPostalCode("87106");
 
         Mockito.when(venueRepository.findById(Mockito.any())).thenReturn(Optional.of(testVenue));
         Mockito.when(venueRepository.existsById(Mockito.any())).thenReturn(true);
 
-        assertTrue(venueService.deleteVenue(testVenueId));
+        assertTrue(venueService.deleteVenue(4L));
     }
 
     @Test

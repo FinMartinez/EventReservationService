@@ -24,7 +24,7 @@ public class VenueService {
         return venueRepository.findAll();
     }
 
-    public Venue getVenue(VenueId venueId) {
+    public Venue getVenue(Long venueId) {
         try {
             return venueRepository.findById(venueId).get();
         } catch(NoSuchElementException | IllegalArgumentException e) {
@@ -39,7 +39,7 @@ public class VenueService {
         entityManager.refresh(venue);
         return venue;
     }
-    public boolean deleteVenue(VenueId venueId) {
+    public boolean deleteVenue(Long venueId) {
         try {
             if(venueRepository.existsById(venueId)) {
                 venueRepository.deleteById(venueId);

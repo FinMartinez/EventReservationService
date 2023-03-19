@@ -1,8 +1,5 @@
 package edu.msudenver.venue;
 
-import edu.msudenver.city.City;
-import edu.msudenver.city.CityId;
-import edu.msudenver.country.Country;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,13 +24,10 @@ public class VenueController {
         }
     }
 
-    @GetMapping(path = "/{countryCode}/{postalCode}/{venueCode}", produces = "application/json")
-    public ResponseEntity<Venue> getVenue(@PathVariable Long venueCode,
-                                        @PathVariable String countryCode,
-                                        @PathVariable String postalCode) {
+    @GetMapping(path = "/{venueCode}", produces = "application/json")
+    public ResponseEntity<Venue> getVenue(@PathVariable Long venueCode) {
         try {
-            VenueId venueId = new VenueId(venueCode, countryCode, postalCode);
-            Venue venue = venueService.getVenue(venueId);
+            Venue venue = venueService.getVenue(venueCode);
             return new ResponseEntity<>(venue, venue == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,15 +45,12 @@ public class VenueController {
         }
     }
 
-    @PutMapping(path = "/{countryCode}/{postalCode}/{venueCode}",
+    @PutMapping(path = "/{venueCode}",
             consumes = "application/json",
             produces = "application/json")
-    public ResponseEntity<Venue> updateVenue(@PathVariable String countryCode,
-                                           @PathVariable String postalCode,
-                                           @PathVariable Long venueCode,
+    public ResponseEntity<Venue> updateVenue(@PathVariable Long venueCode,
                                            @RequestBody Venue updatedVenue) {
-        VenueId venueId = new VenueId(venueCode, countryCode, postalCode);
-        Venue retrievedVenue = venueService.getVenue(venueId);
+        Venue retrievedVenue = venueService.getVenue(venueCode);
         if (retrievedVenue != null) {
             retrievedVenue.setVenueName(updatedVenue.getVenueName());
             try {
@@ -73,13 +64,10 @@ public class VenueController {
         }
     }
 
-    @DeleteMapping(path = "/{countryCode}/{postalCode}/{venueCode}")
-    public ResponseEntity<Void> deleteVenue(@PathVariable Long venueCode,
-                                           @PathVariable String countryCode,
-                                           @PathVariable String postalCode) {
+    @DeleteMapping(path = "/{venueCode}")
+    public ResponseEntity<Void> deleteVenue(@PathVariable Long venueCode) {
         try {
-            VenueId venueId = new VenueId(venueCode, countryCode, postalCode);
-            return new ResponseEntity<>(venueService.deleteVenue(venueId) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(venueService.deleteVenue(venueCode) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(ExceptionUtils.getStackTrace(e), HttpStatus.BAD_REQUEST);

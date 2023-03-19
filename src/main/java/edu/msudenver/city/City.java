@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "cities")
+@IdClass(CityId.class)
 public class City {
     @Column(name = "name", columnDefinition = "text")
     @NotNull(message = "name cannot be null")

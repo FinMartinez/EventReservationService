@@ -67,7 +67,7 @@ public class VenueControllerTest {
     @Test
     public void testGetVenue() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/venues/id/us/80204/")//what needs to go for venue id? Just this?
+                .get("/venues/4/")//what needs to go for venue id? Just this?
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
@@ -92,7 +92,7 @@ public class VenueControllerTest {
     @Test
     public void testGetVenueNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .get("/venues/404") //be careful about this with venues. Have the controller accept
+                .get("/venues/404/") //be careful about this with venues. Have the controller accept
                                                       // long type and change this to a number, 404 I think.
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -139,7 +139,7 @@ public class VenueControllerTest {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
                 .post("/venues/")
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"venueName\": \"Mission Ballroom\"}")
+                .content("{\"venueId\": \"4\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
         Mockito.when(venueService.saveVenue(Mockito.any())).thenThrow(IllegalArgumentException.class);
@@ -155,7 +155,7 @@ public class VenueControllerTest {
     @Test
     public void testUpdateVenue() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/venues/id/us/80204")//id can be anything you want
+                .put("/venues/4/")//id can be anything you want
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"venueId\":\"4\"}")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -191,7 +191,7 @@ public class VenueControllerTest {
     @Test
     public void testUpdateVenueNotFound() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/venues/notfound")
+                .put("/venues/404")
                 .accept(MediaType.APPLICATION_JSON)
                 .content("{\"venueId\":\"404\"}")
                 .contentType(MediaType.APPLICATION_JSON);
@@ -208,15 +208,9 @@ public class VenueControllerTest {
     @Test
     public void testUpdateVenueBadRequest() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .put("/venues/id/us/80204/") //add in venue id?
+                .put("/venues/4/") //add in venue id?
                 .accept(MediaType.APPLICATION_JSON)
-                .content("{\"venueId\":\"4\", " +
-                "\"venueName\":\"Mission Ballroom\", " +
-                "\"venueAddress\":\"4242 Wynkoop St\", " +
-                "\"venueType\":\"public\", " +
-                "\"postalCode\":\"80204\", " +
-                "\"countryCode\":\"us\", " +
-                "\"active\": \"true\"}")
+                .content("{\"venueId\":\"4\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
         Venue testVenue = new Venue();
@@ -241,7 +235,7 @@ public class VenueControllerTest {
     @Test
     public void testDeleteVenue() throws Exception {
         RequestBuilder requestBuilder = MockMvcRequestBuilders
-                .delete("/venues/id/us/80204/") //add in venue id
+                .delete("/venues/4/") //add in venue id
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 

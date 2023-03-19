@@ -72,7 +72,7 @@ public class CityControllerTest {
         testCity.setCountryCode("us");
         testCity.setPostalCode("80204");
 
-        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(testCity);
+        Mockito.when(cityService.getCity(Mockito.anyString(), Mockito.anyString())).thenReturn(testCity);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -89,7 +89,7 @@ public class CityControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(null);
+        Mockito.when(cityService.getCity(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -150,7 +150,7 @@ public class CityControllerTest {
         denver.setCityName("Denver");
         denver.setCountryCode("us");
         denver.setPostalCode("80204");
-        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);
+        Mockito.when(cityService.getCity(Mockito.anyString(), Mockito.anyString())).thenReturn(denver);
 
         City denverUpdated = new City();
         denverUpdated.setCityName("Denver Updated");
@@ -173,7 +173,7 @@ public class CityControllerTest {
                 .content("{\"countryCode\": \"us\", \"postalCode\": \"80204\", \"Name\": \"notfound\"}")
                 .contentType(MediaType.APPLICATION_JSON);
 
-        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(null);
+        Mockito.when(cityService.getCity(Mockito.anyString(), Mockito.anyString())).thenReturn(null);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
         MockHttpServletResponse response = result.getResponse();
@@ -194,7 +194,8 @@ public class CityControllerTest {
         denver.setCityName("Denver");
         denver.setCountryCode("us");
         denver.setPostalCode("80204");
-        Mockito.when(cityService.getCity(Mockito.any())).thenReturn(denver);
+
+        Mockito.when(cityService.getCity(Mockito.anyString(), Mockito.anyString())).thenReturn(denver);
 
         Mockito.when(cityService.saveCity(Mockito.any())).thenThrow(IllegalArgumentException.class);
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();

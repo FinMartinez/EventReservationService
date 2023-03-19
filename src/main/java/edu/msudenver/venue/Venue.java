@@ -2,7 +2,6 @@ package edu.msudenver.venue;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.msudenver.city.City;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,25 +24,16 @@ public class Venue {
     @Column(name = "type", columnDefinition = "char(7)")
     private String venueType;
 
-    @Id
     @Column(name = "postal_code", columnDefinition = "varchar(9)")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String postalCode;
 
-    @Id
     @Column(name = "country_code", columnDefinition = "char(2)")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String countryCode;
 
     @Column(name = "active", columnDefinition = "boolean")
     private boolean active;
-    @ManyToOne()
-    @JoinColumns({
-            @JoinColumn(name = "country_code", referencedColumnName = "country_code", insertable = false, updatable = false),
-            @JoinColumn(name = "postal_code", referencedColumnName = "postal_code", insertable = false, updatable = false)
-    })
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private City city;
 
     public Venue() {
     }
@@ -86,14 +76,6 @@ public class Venue {
     public String getCountryCode() { return countryCode; }
 
     public void setCountryCode(String countryCode) { this.countryCode = countryCode; }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
 
     public boolean isActive() { return active; }
 

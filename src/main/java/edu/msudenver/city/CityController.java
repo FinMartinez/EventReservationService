@@ -29,8 +29,7 @@ public class CityController {
     @GetMapping(path = "/{countryCode}/{postalCode}", produces = "application/json")
     public ResponseEntity<City> getCity(@PathVariable String countryCode, @PathVariable String postalCode) {
         try {
-            CityId cityId = new CityId(countryCode, postalCode);
-            City city = cityService.getCity(cityId);
+            City city = cityService.getCity(countryCode, postalCode);
             return new ResponseEntity<>(city, city == null ? HttpStatus.NOT_FOUND : HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,8 +51,7 @@ public class CityController {
     public ResponseEntity<City> updateCity(@PathVariable String countryCode,
                                            @PathVariable String postalCode,
                                            @RequestBody City updatedCity) {
-        CityId cityId = new CityId(countryCode, postalCode);
-        City retrievedCity = cityService.getCity(cityId);
+        City retrievedCity = cityService.getCity(countryCode, postalCode);
         if (retrievedCity != null) {
             retrievedCity.setCityName(updatedCity.getCityName());
             try {

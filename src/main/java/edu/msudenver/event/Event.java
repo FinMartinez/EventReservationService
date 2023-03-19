@@ -3,7 +3,7 @@ package edu.msudenver.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vladmihalcea.hibernate.type.array.StringArrayType;
-import edu.msudenver.venue.Venue;
+//import edu.msudenver.venue.Venue;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @Table(name = "events")
 public class Event{
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id", columnDefinition = "SERIAL")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long eventId;
@@ -34,27 +34,18 @@ public class Event{
     @Column(name = "starts", columnDefinition = "timestamp")
     private Timestamp eventStart;
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "ends", columnDefinition = "timestamp")
     private Timestamp eventEnd;
-
-    @Id
-    @Column(name = "venue_id", columnDefinition = "integer")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Long eventVenue;
 
     @Type(type = "string-array")
     @Column(name = "colors", columnDefinition = "text[]")
     private String[] eventColors; //may be wrong data type
 
-    @ManyToOne()
-    @JoinColumns({
-            @JoinColumn(name = "venue_id", referencedColumnName = "venue_id", insertable = false, updatable = false),
-            @JoinColumn(name = "country_code", referencedColumnName = "country_code", insertable = false, updatable = false),
-            @JoinColumn(name = "postal_code", referencedColumnName = "postal_code", insertable = false, updatable = false)
-    })
+    @Column(name = "venue_id", columnDefinition = "SERIAL")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Venue venue;
-
+    private Long venueId;
 
     public Event() {
     }
@@ -63,13 +54,13 @@ public class Event{
                  String eventTitle,
                  Timestamp eventStart,
                  Timestamp eventEnd,
-                 Long eventVenue,
+                 Long venueId,
                  String[] eventColors) {
         this.eventId = eventId;
         this.eventTitle = eventTitle;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
-        this.eventVenue = eventVenue;
+        this.venueId = venueId;
         this.eventColors = eventColors;
     }
 
@@ -89,15 +80,11 @@ public class Event{
 
     public void setEventEnd(Timestamp eventEnd) { this.eventEnd = eventEnd; }
 
-    public Long getEventVenue() { return eventVenue; }
-
-    public void setEventVenue(Long eventVenue) { this.eventVenue = eventVenue; }
-
     public String[] getEventColors() { return eventColors; }
 
     public void setEventColors(String[] eventColors) { this.eventColors = eventColors; }
 
-    public Venue getVenue() { return venue; }
+    public Long getVenueId() { return venueId; }
 
-    public void setVenue(Venue venue) { this.venue = venue; }
+    public void setVenueId(Long venueId) { this.venueId = venueId; }
 }
