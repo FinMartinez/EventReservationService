@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "ad6e28d5-bc6f-49a5-883b-af3600c3f94a",
+		"name": "project1_heroku_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25478488"
+	},
+	"item": [
+		{
+			"name": "Country",
+			"item": [
+				{
+					"name": "heroku_getCountries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/countries/",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"countries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_getCountry",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/countries/us",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"countries",
+								"us"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_createCountry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\": \"United States\",\n    \"countryCode\": \"us\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/countries/",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"countries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_updateCountry",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\": \"Unites States (Updated)\",\n    \"countryCode\": \"us\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/countries/us",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"countries",
+								"us"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"countryName\":\"United States (Updated)\",\n    \"countryCode\":\"us\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/countries/us",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"countries",
+								"us"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "heroku_getCities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/cities",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_createCity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cityName\":\"Denver\",\n    \"countryCode\":\"us\",\n    \"postalCode\": \"80204\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/cities",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_getCity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/cities/us/80204",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cities",
+								"us",
+								"80204"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_updateCity",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cityName\":\"Denver (Updated)\",\n    \"countryCode\":\"us\",\n    \"postalCode\":\"80204\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/cities/us/80204",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cities",
+								"us",
+								"80204"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_deleteCity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/cities/us/80204",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"cities",
+								"us",
+								"80204"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Venue",
+			"item": [
+				{
+					"name": "heroku_getVenues",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/venues",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_createVenue",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"venueName\":\"Mission Ballroom\",\n    \"venueAddress\":\"4252 Wynkoop St\",\n    \"venueType\":\"public\",\n    \"countryCode\":\"us\",\n    \"postalCode\":\"80204\",\n    \"active\":\"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/venues",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"venues"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_getVenue",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_updateVenue",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"venueName\":\"Mission Ballroom (Updated)\",\n    \"venueAddress\":\"4252 Wynkoop St\",\n    \"venueType\":\"public\",\n    \"countryCode\":\"us\",\n    \"postalCode\":\"80204\",\n    \"active\":\"true\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/venues/1",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"venues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_deleteVenue",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/venues/1",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"venues",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "heroku_getEvents",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_createEvent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": 3,\n    \"venueId\": 1,\n    \"eventTitle\":\"Synthfest\",\n    \"eventStart\": \"2023-03-18T12:00:00\",\n    \"eventEnd\": \"2023-03-18T13:00:00\",\n    \"eventColors\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/events",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_getEvent",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_updateEvent",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": 1,\n    \"venueId\": 1,\n    \"eventTitle\":\"Synthfest (Updated)\",\n    \"eventStart\": \"2023-03-18T12:00:00\",\n    \"eventEnd\": \"2023-03-18T13:00:00\",\n    \"eventColors\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://cs-3250-project1-fmarti74.herokuapp.com/events/1",
+							"protocol": "https",
+							"host": [
+								"cs-3250-project1-fmarti74",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "heroku_deleteEvent",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
